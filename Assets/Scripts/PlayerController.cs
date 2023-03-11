@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 
 public enum PivotType
 {
@@ -16,13 +16,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] Transform firstPivotPoint;
     [SerializeField] Transform secondPivotPoint;
+    [SerializeField] BoxCollider boxCollider;
     [SerializeField] float rotateSpeed;
     [SerializeField] float distanceBetweenPoints;
+    [SerializeField] float distanceBetweenPointsWhenFrenzy;
+    [SerializeField] float accelarateSpeed;
+    [SerializeField] float frenzyModeDuration;
     private Transform parentPoint;
     private Transform childPoint;
     private int currentDir = 1;
     private bool isChanging;
     private PivotType currentPivotType;
+
+    private Vector3 boxColliderSize;
 
     void Awake()
     {
@@ -35,7 +41,14 @@ public class PlayerController : MonoBehaviour
         lineRenderer.positionCount = 2;
         parentPoint = firstPivotPoint;
         childPoint = secondPivotPoint;
+        secondPivotPoint.transform.parent = firstPivotPoint;
         currentPivotType = PivotType.FirstPivotPoint;
+        GameManager.ON_CHANGE_STATE += OnChangeState;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.ON_CHANGE_STATE -= OnChangeState;
     }
 
     void Update()
@@ -43,6 +56,36 @@ public class PlayerController : MonoBehaviour
         lineRenderer.SetPosition(0, firstPivotPoint.position);
         lineRenderer.SetPosition(1, secondPivotPoint.position);
         UpdateMovement();
+
+        if (GameManager.Instance.IsFrenzyMode)
+        {
+            distanceBetweenPoints = Mathf.Lerp(distanceBetweenPoints, distanceBetweenPointsWhenFrenzy, Time.deltaTime * accelarateSpeed);
+        }
+    }
+
+    public void OnChangeState(GameState newState)
+    {
+        switch (newState)
+        {
+            case GameState.Frenzy:
+                EnterFrenzyMode();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void EnterFrenzyMode()
+    {
+        StartCoroutine(CorEnterFrenzyMode());
+    }
+
+    private IEnumerator CorEnterFrenzyMode()
+    {
+        boxCollider.size = new Vector3(distanceBetweenPointsWhenFrenzy, boxCollider.size.y, boxCollider.size.z);
+        yield return new WaitForSeconds(frenzyModeDuration);
+        GameManager.ON_CHANGE_STATE?.Invoke(GameState.Running);
+        boxCollider.size = new Vector3(distanceBetweenPoints, boxCollider.size.y, boxCollider.size.z);
     }
 
     public Material GetCollideMat()

@@ -16,7 +16,6 @@ public class ObstacleObject : MonoBehaviour
             return;
 
         hitParticle.Play();
-        ChangeColor();
     }
 
     private void ChangeColor()
@@ -30,6 +29,10 @@ public class ObstacleObject : MonoBehaviour
     private void OnTriggerStay(Collider collider)
     {
         Swaying(collider);
+        if (GameManager.Instance.currentGameState != GameState.Running && GameManager.Instance.currentGameState != GameState.Frenzy)
+            return;
+
+        ChangeColor();
     }
 
     private void OnTriggerExit(Collider collider)

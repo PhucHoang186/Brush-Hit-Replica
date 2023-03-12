@@ -263,55 +263,55 @@ MonoBehaviour:
   - m_Vertices: 0b0000000e00000012000000
   m_SharedTextures: []
   m_Positions:
-  - {x: 0, y: 0, z: 10}
-  - {x: 10, y: 0, z: 10}
-  - {x: 0, y: 0.25, z: 10}
-  - {x: 10, y: 0.25, z: 10}
-  - {x: 10, y: 0, z: 10}
+  - {x: 0, y: 0, z: 9.75}
+  - {x: 10, y: 0, z: 9.75}
+  - {x: 0, y: 0.25, z: 9.75}
+  - {x: 10, y: 0.25, z: 9.75}
+  - {x: 10, y: 0, z: 9.75}
   - {x: 10, y: 0, z: 0}
-  - {x: 10, y: 0.25, z: 10}
+  - {x: 10, y: 0.25, z: 9.75}
   - {x: 10, y: 0.25, z: 0}
   - {x: 10, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 10, y: 0.25, z: 0}
   - {x: 0, y: 0.25, z: 0}
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 10}
+  - {x: 0, y: 0, z: 9.75}
   - {x: 0, y: 0.25, z: 0}
-  - {x: 0, y: 0.25, z: 10}
-  - {x: 0, y: 0.25, z: 10}
-  - {x: 10, y: 0.25, z: 10}
+  - {x: 0, y: 0.25, z: 9.75}
+  - {x: 0, y: 0.25, z: 9.75}
+  - {x: 10, y: 0.25, z: 9.75}
   - {x: 0, y: 0.25, z: 0}
   - {x: 10, y: 0.25, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 10, y: 0, z: 0}
-  - {x: 0, y: 0, z: 10}
-  - {x: 10, y: 0, z: 10}
+  - {x: 0, y: 0, z: 9.75}
+  - {x: 10, y: 0, z: 9.75}
   m_Textures0:
   - {x: 0, y: 0}
   - {x: -10, y: 0}
   - {x: 0, y: 0.25}
   - {x: -10, y: 0.25}
-  - {x: 10, y: 0}
+  - {x: 9.75, y: 0}
   - {x: 0, y: 0}
-  - {x: 10, y: 0.25}
+  - {x: 9.75, y: 0.25}
   - {x: 0, y: 0.25}
   - {x: 10, y: 0}
   - {x: 0, y: 0}
   - {x: 10, y: 0.25}
   - {x: 0, y: 0.25}
   - {x: 0, y: 0}
-  - {x: -10, y: 0}
+  - {x: -9.75, y: 0}
   - {x: 0, y: 0.25}
-  - {x: -10, y: 0.25}
-  - {x: 0, y: 10}
-  - {x: 10, y: 10}
+  - {x: -9.75, y: 0.25}
+  - {x: 0, y: 9.75}
+  - {x: 10, y: 9.75}
   - {x: 0, y: 0}
   - {x: 10, y: 0}
   - {x: 0, y: 0}
   - {x: -10, y: 0}
-  - {x: 0, y: 10}
-  - {x: -10, y: 10}
+  - {x: 0, y: 9.75}
+  - {x: -10, y: 9.75}
   m_Textures2: []
   m_Textures3: []
   m_Tangents:
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 85
+  m_VersionIndex: 103
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -439,7 +439,7 @@ MeshCollider:
   m_GameObject: {fileID: 2573415767194370829}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30

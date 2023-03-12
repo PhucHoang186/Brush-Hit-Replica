@@ -14,6 +14,10 @@ public class ScoreUIPanel : MonoBehaviour
         {
             score = value;
             scoreText.text = score.ToString();
+            if (score == GameManager.Instance.GetLevelMaxScore())
+            {
+                GameManager.ON_CHANGE_STATE?.Invoke(GameState.TransitionToNextLevel);
+            }
         }
     }
 }

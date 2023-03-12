@@ -13,9 +13,10 @@ public class UIManager : MonoBehaviour
     public static Action TRANSITION_IN;
     public static Action TRANSITION_OUT;
     public ScoreUIPanel scoreUIPanel;
+    public LevelShowcase levelShowcase;
 
     public CollectItemUIContainer collectItemUI;
-    [SerializeField] Button tapToStartButton;
+    [SerializeField] GameObject tapToStartText;
     [SerializeField] Animator transitionAnimator;
 
 
@@ -39,14 +40,19 @@ public class UIManager : MonoBehaviour
 
     public void ResetUI()
     {
-        tapToStartButton.transform.gameObject.SetActive(true);
+        tapToStartText.SetActive(true);
     }
 
-    public void OnStartButtonClicked()
+    public void TurnOffTapToStartText()
     {
-        tapToStartButton.transform.gameObject.SetActive(false);
-        GameManager.ON_CHANGE_STATE?.Invoke(GameState.Running);
+        tapToStartText.SetActive(false);
     }
+
+    public void OnReplayButtonClicked()
+    {
+        GameManager.ON_CHANGE_STATE?.Invoke(GameState.Lose);
+    }
+
 
     public void TransitionIn()
     {

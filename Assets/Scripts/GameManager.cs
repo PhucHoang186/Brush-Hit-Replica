@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public bool IsFrenzyMode => isFrenzyMode;
     private int currentLevel = 1;
     private int levelSection = 0;
+    private int totalCurrentLevelSection = 0;
     private int levelMaxScore;
     private bool isInitPlay = true;
     private string currentLevelName;
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
         {
             if (currentGameState == GameState.WaitForInput)
             {
+                UIManager.Instance.TurnOffTapToStartText();
                 ON_CHANGE_STATE?.Invoke(GameState.Running);
             }
         }
@@ -112,10 +114,26 @@ public class GameManager : MonoBehaviour
         ON_CHANGE_STATE?.Invoke(GameState.Start);
     }
 
+    public int GetCurrentLevel()
+    {
+        return currentLevel;
+    }
+
+    public int GetCurrentLevelSection()
+    {
+        return levelSection;
+    }
+
+    public int GetCurrentTotalLevelSection()
+    {
+        return totalCurrentLevelSection;
+    }
+
     private void EndGame()
     {
         StartCoroutine(CorEndGame());
     }
+
 
     private IEnumerator CorEndGame()
     {
@@ -147,6 +165,7 @@ public class GameManager : MonoBehaviour
             SceneManager.UnloadSceneAsync(currentLevelName);
 
         var levelData = levelsConfig.GetLevelData(currentLevel);
+        totalCurrentLevelSection = levelData.GetTotalNumber();
         if (levelSection <= levelData.GetTotalNumber())
         {
             levelSection++;
@@ -165,6 +184,7 @@ public class GameManager : MonoBehaviour
         while (!async.isDone)
             yield return null;
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentLevelName));
+        UIManager.Instance.levelShowcase.InitLevelShowcasePanel();
         UIManager.TRANSITION_OUT?.Invoke();
         ON_CHANGE_STATE?.Invoke(GameState.WaitForInput);
     }

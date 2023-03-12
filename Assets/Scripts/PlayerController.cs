@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using UnityEngine.EventSystems;
 
 public enum PivotType
 {
@@ -196,7 +197,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            SwitchPivot();
+            if(!IsPointerOverAnyUI())
+                SwitchPivot();
         }
         MovingPlayer();
     }
@@ -252,5 +254,20 @@ public class PlayerController : MonoBehaviour
             t += Time.deltaTime;
             yield return null;
         }
+    }
+
+    private bool IsPointerOverAnyUI()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+        
+        if(Input.touchCount > 0)
+        {
+            var touchInput =  Input.GetTouch(0);
+            EventSystem.current.IsPointerOverGameObject(touchInput.fingerId);
+        }
+        return false;
     }
 }

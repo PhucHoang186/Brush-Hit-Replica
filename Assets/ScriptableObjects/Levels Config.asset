@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelDatas:
   - level: 1
-    totalLevelSectionNumber: 2
+    totalLevelSectionNumber: 4
     levelMaxScore: 800

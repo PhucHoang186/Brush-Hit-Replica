@@ -25,7 +25,7 @@ public class LevelData
 {
     public int level;
     public int totalLevelSectionNumber;
-    public int levelMaxScore; // temporary, will add another way to track when have time
+    public List<int> levelMaxScoreForeachSection; // temporary, will add another way to track when have time
 
     public string GetLevelName(int levelNumber)
     {

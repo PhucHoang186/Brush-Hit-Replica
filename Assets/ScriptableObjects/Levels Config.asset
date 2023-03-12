@@ -15,4 +15,4 @@ MonoBehaviour:
   levelDatas:
   - level: 1
     totalLevelSectionNumber: 4
-    levelMaxScore: 800
+    levelMaxScoreForeachSection: 200300004006000060090000800c0000

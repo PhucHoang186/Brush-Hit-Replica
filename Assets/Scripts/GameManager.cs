@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
         }
 
         UIManager.Instance.collectItemUI.ResetCollectItems();
-        levelMaxScore = levelData.levelMaxScore;
+        levelMaxScore = levelData.levelMaxScoreForeachSection[levelSection - 1];
         currentLevelName = levelData.GetLevelName(levelSection);
         var async = SceneManager.LoadSceneAsync(levelData.GetLevelName(levelSection), LoadSceneMode.Additive);
         while (!async.isDone)

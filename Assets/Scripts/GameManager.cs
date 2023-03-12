@@ -13,6 +13,7 @@ public enum GameState
     Running,
     Frenzy,
     Lose,
+    Replay,
     TransitionToNextLevel,
     Pause,
 }
@@ -89,7 +90,9 @@ public class GameManager : MonoBehaviour
             case GameState.Frenzy:
                 break;
             case GameState.Lose:
-                EndGame();
+                break;
+            case GameState.Replay:
+                ReplayGame();
                 break;
             case GameState.TransitionToNextLevel:
                 ToNextlevel();
@@ -129,20 +132,20 @@ public class GameManager : MonoBehaviour
         return totalCurrentLevelSection;
     }
 
-    private void EndGame()
+    private void ReplayGame()
     {
-        StartCoroutine(CorEndGame());
+        StartCoroutine(CorReplayGame());
     }
 
 
-    private IEnumerator CorEndGame()
+    private IEnumerator CorReplayGame()
     {
         currentLevel = 1;
         levelSection = 0;
         UIManager.Instance.scoreUIPanel.Score = 0;
         yield return new WaitForSeconds(2f);
         UIManager.TRANSITION_IN?.Invoke();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         UIManager.Instance.ResetUI();
         ON_CHANGE_STATE?.Invoke(GameState.Start);
     }

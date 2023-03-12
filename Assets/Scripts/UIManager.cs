@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class UIManager : MonoBehaviour
     public static Action TRANSITION_OUT;
     public ScoreUIPanel scoreUIPanel;
     public LevelShowcase levelShowcase;
+    public GameObject gameOverScreen;
+    public GameObject gameWinScreen;
 
     public CollectItemUIContainer collectItemUI;
     [SerializeField] GameObject tapToStartText;
@@ -30,17 +33,22 @@ public class UIManager : MonoBehaviour
     {
         TRANSITION_IN += TransitionIn;
         TRANSITION_OUT += TransitionOut;
+        GameManager.ON_CHANGE_STATE += OnChangeState;
     }
 
-    void Destroy()
+    void OnDestroy()
     {
+
         TRANSITION_IN -= TransitionIn;
         TRANSITION_OUT -= TransitionOut;
+        GameManager.ON_CHANGE_STATE -= OnChangeState;
     }
 
     public void ResetUI()
     {
         tapToStartText.SetActive(true);
+        gameOverScreen.SetActive(false);
+        gameWinScreen.SetActive(false);
     }
 
     public void TurnOffTapToStartText()
@@ -48,11 +56,32 @@ public class UIManager : MonoBehaviour
         tapToStartText.SetActive(false);
     }
 
-    public void OnReplayButtonClicked()
+    public void OnChangeState(GameState newState)
     {
-        GameManager.ON_CHANGE_STATE?.Invoke(GameState.Lose);
+        switch (newState)
+        {
+
+            case GameState.Lose:
+                ShowGameOverScreen();
+                break;
+            case GameState.TransitionToNextLevel:
+                break;
+            case GameState.Pause:
+                break;
+            default:
+                break;
+        }
     }
 
+    public void OnReplayButtonClicked()
+    {
+        GameManager.ON_CHANGE_STATE?.Invoke(GameState.Replay);
+    }
+
+    private void ShowGameOverScreen()
+    {
+        DOVirtual.DelayedCall(2f, () => gameOverScreen.gameObject.SetActive(true));
+    }
 
     public void TransitionIn()
     {
